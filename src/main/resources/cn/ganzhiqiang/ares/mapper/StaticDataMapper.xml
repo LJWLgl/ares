@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="staticdata">
+
+  <resultMap id="RM-SCHOOL" type="cn.ganzhiqiang.ares.staticdata.domain.SchoolDO">
+    <result property="id" column="id"/>
+    <result property="name" column="school"/>
+  </resultMap>
+
+  <select id="querySchool" resultMap="RM-SCHOOL">
+    SELECT id,school
+    FROM static_data
+  </select>
+
+</mapper>

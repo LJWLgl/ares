@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="comment">
+
+  <resultMap id="RM-COMMENT" type="cn.ganzhiqiang.ares.comment.domain.CommentDO">
+    <result property="id" column="id"/>
+    <result property="userId" column="user_id"/>
+    <result property="content" column="content"/>
+    <result property="resourceId" column="resource_id"/>
+    <result property="resourceType" column="resource_type"/>
+    <result property="status" column="status"/>
+    <result property="gmtCreate" column="gmt_create"/>
+  </resultMap>
+
+  <sql id="COMMON-COLUMNS">
+    id,
+    user_id,
+    content,
+    resource_id,
+    resource_type,
+    status,
+    gmt_create
+  </sql>
+
+  <insert id="insertComment" parameterType="cn.ganzhiqiang.ares.comment.domain.CommentDO"
+    keyColumn="id" keyProperty="id" useGeneratedKeys="true">
+    INSERT INTO comment_comment(user_id, content, resource_id, resource_type)
+    VALUES (#{userId}, #{content}, #{resourceId}, #{resourceType})
+  </insert>
+
+  <select id="queryCommentByResourceId" parameterType="java.util.Map" resultMap="RM-COMMENT">
+    SELECT <include refid="COMMON-COLUMNS" />
+    FROM comment_comment
+    WHERE resource_id = #{resourceId} AND resource_type = #{resourceType} AND status <![CDATA[ <> ]]> 5
+    ORDER BY gmt_create
+  </select>
+
+  <update id="updateCommentStatus" parameterType="java.util.Map">
+    UPDATE comment_comment
+    SET status = #{status}
+    WHERE id = #{commentId}
+  </update>
+
+</mapper>

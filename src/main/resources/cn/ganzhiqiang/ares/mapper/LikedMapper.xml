@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="like">
+
+  <resultMap id="RM-LIKE" type="cn.ganzhiqiang.ares.like.domain.LikeDO">
+    <result property="id" column="id"/>
+    <result property="userId" column="user_id"/>
+    <result property="resourceId" column="resource_id"/>
+    <result property="resourceType" column="resource_type"/>
+    <result property="gmtCreate" column="gmt_create"/>
+  </resultMap>
+
+  <sql id="COMMON-COLUMNS">
+    id,
+    user_id,
+    resource_id,
+    resource_type,
+    gmt_create
+  </sql>
+
+  <select id="findLikeByResourceId" parameterType="java.util.Map" resultMap="RM-LIKE">
+    SELECT <include refid="COMMON-COLUMNS" />
+    FROM like_like
+    WHERE resource_id = #{resourceId} AND resource_type = #{resourceType}
+  </select>
+
+  <select id="queryLikeByUserId" parameterType="java.util.Map" resultMap="RM-LIKE">
+    SELECT <include refid="COMMON-COLUMNS" />
+    FROM like_like
+    WHERE user_id = #{userId}
+    LIMIT #{start}, #{limit}
+  </select>
+  
+  <select id="findLikeById" parameterType="java.util.Map" resultMap="RM-LIKE">
+    SELECT <include refid="COMMON-COLUMNS"/>
+    FROM like_like
+    WHERE id = #{likeId}
+  </select>
+
+  <delete id="deleteLike">
+    DELETE FROM like_like
+    WHERE id = #{likeId}
+  </delete>
+
+  <insert id="insertLike" parameterType="cn.ganzhiqiang.ares.like.domain.LikeDO"
+    keyColumn="id" keyProperty="id" useGeneratedKeys="true">
+    INSERT INTO like_like (user_id, resource_id, resource_type)
+    VALUES (#{userId}, #{resourceId}, #{resourceType})
+  </insert>
+
+</mapper>

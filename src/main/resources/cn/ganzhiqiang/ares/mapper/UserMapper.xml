@@ -1,0 +1,191 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="user">
+
+  <resultMap id="RM-USER" type="cn.ganzhiqiang.ares.people.domain.UserDO">
+    <result property="id" column="id"/>
+    <result property="openId" column="open_id"/>
+    <result property="unionId" column="union_id"/>
+    <result property="telephone" column="telephone"/>
+    <result property="email" column="email"/>
+    <result property="status" column="status"/>
+    <result property="isAuth" column="is_auth"/>
+    <result property="creatDateTime" column="creat_datetime"/>
+    <result property="gmtUpdated" column="gmt_updated"/>
+  </resultMap>
+
+  <resultMap id="RM-USER-PROFILE" type="cn.ganzhiqiang.ares.people.domain.UserInfoDO" >
+    <result property="id" column="id"/>
+    <result property="nickName" column="nickname"/>
+    <result property="avatarUrl" column="avatar_url"/>
+    <result property="gender" column="gender"/>
+    <result property="integral" column="integral"/>
+    <result property="city" column="city"/>
+    <result property="province" column="province"/>
+    <result property="country" column="country"/>
+    <result property="language" column="language"/>
+    <result property="school" column="school"/>
+    <result property="shipAddress" column="ship_address"/>
+    <result property="creatDateTime" column="creat_dateTime"/>
+    <result property="gmtUpdated" column="gmt_updated"/>
+  </resultMap>
+
+  <sql id="USER-COLUMNS">
+    id,
+    open_id,
+    union_id,
+    telephone,
+    email,
+    status,
+    is_auth,
+    creat_datetime,
+    gmt_updated
+  </sql>
+
+  <sql id="USER-PROFILE-COLUMNS">
+    id,
+    nickname,
+    avatar_url,
+    gender,
+    integral,
+    city,
+    province,
+    country,
+    "language",
+    school,
+    ship_address,
+    creat_datetime,
+    gmt_updated
+  </sql>
+
+  <select id="findUserIdByOpenId" parameterType="java.util.Map" resultType="java.lang.Integer">
+    SELECT id
+    FROM auth_user
+    WHERE open_id = #{openId}
+  </select>
+
+  <select id="findUser" parameterType="java.util.Map" resultMap="RM-USER">
+    SELECT <include refid="USER-COLUMNS"/>
+    FROM auth_user
+    WHERE id = #{userId}
+  </select>
+
+  <select id="findUserByTelephone" parameterType="java.util.Map" resultMap="RM-USER">
+    SELECT <include refid="USER-COLUMNS"/>
+    FROM auth_user
+    WHERE telephone = #{telephone}
+  </select>
+
+  <select id="findUserByEmail" parameterType="java.util.Map" resultMap="RM-USER">
+    SELECT <include refid="USER-COLUMNS"/>
+    FROM auth_user
+    WHERE telephone = #{email}
+  </select>
+
+  <select id="findUserProfile" parameterType="java.util.Map" resultMap="RM-USER-PROFILE">
+    SELECT <include refid="USER-PROFILE-COLUMNS" />
+    FROM auth_user_profile
+    WHERE id = #{userId}
+  </select>
+
+  <select id="queryUserProfiles" parameterType="java.util.Map" resultMap="RM-USER-PROFILE">
+    SELECT <include refid="USER-PROFILE-COLUMNS" />
+    FROM auth_user_profile
+    WHERE id IN
+    <foreach collection="userIds" item="item" open="(" close=")" separator=",">
+      #{item}
+    </foreach>
+  </select>
+
+  <insert id="insertUser" parameterType="cn.ganzhiqiang.ares.people.domain.UserDO"
+    keyColumn="id" keyProperty="id" useGeneratedKeys="true">
+    INSERT INTO auth_user (open_id, union_id, telephone, email, status, is_auth, creat_datetime, gmt_updated)
+    VALUES (#{openId}, #{unionId}, #{telephone}, #{email}, #{status}, #{isAuth}, now(), now())
+  </insert>
+
+  <insert id="insertUserProfile" parameterType="cn.ganzhiqiang.ares.people.domain.UserInfoDO"
+    keyColumn="id" keyProperty="id">
+    INSERT INTO auth_user_profile (id, nickname, avatar_url, gender, integral, city, province, country, language, school, creat_datetime, gmt_updated)
+    VALUES (#{id}, #{nickName}, #{avatarUrl}, #{gender}, #{integral}, #{city},#{province},#{country},#{language},#{school},now(),now())
+  </insert>
+  
+  <update id="updateUserProfile" parameterType="cn.ganzhiqiang.ares.people.domain.UserInfoDO">
+    UPDATE auth_user_profile aup
+    <set>
+      <if test="nickName != null">
+        aup.nickname = #{nickName},
+      </if>
+      <if test="avatarUrl != null">
+        aup.avatar_url = #{avatarUrl},
+      </if>
+      <if test="gender != null">
+        aup.gender = #{gender},
+      </if>
+      <if test="integral != null">
+        aup.integral = #{integral},
+      </if>
+      <if test="city != null">
+        aup.city = #{city},
+      </if>
+      <if test="province != null">
+        aup.province = #{province},
+      </if>
+      <if test="country != null">
+        aup.country = #{country},
+      </if>
+      <if test="language != null">
+        aup.language = #{language},
+      </if>
+      <if test="school != null">
+        aup.school = #{school},
+      </if>
+      <if test="shipAddress != null">
+        aup.ship_address = #{shipAddress},
+      </if>
+    </set>
+    WHERE aup.id = #{id}
+  </update>
+
+
+  <update id="updateSchool" parameterType="java.util.Map">
+    UPDATE auth_user_profile
+    SET school = #{schoolIndex}
+    WHERE id = #{userId}
+  </update>
+
+  <update id="updateShipAddress" parameterType="java.util.Map">
+    UPDATE auth_user_profile
+    SET ship_address = #{shipAddress}
+    WHERE id = #{userId}
+  </update>
+
+  <update id="updateTelephone" parameterType="java.util.Map">
+    UPDATE auth_user
+    SET telephone = #{telephone}
+    WHERE id = #{userId}
+  </update>
+
+  <update id="updateAuthStatus" parameterType="java.util.Map">
+    UPDATE auth_user
+    SET is_auth = #{authStatus}
+    WHERE id = #{userId}
+  </update>
+
+  <update id="updateEmail" parameterType="java.util.Map">
+    UPDATE auth_user
+    SET email = #{email}
+    WHERE id = #{userId}
+  </update>
+
+  <select id="findMinId" parameterType="java.util.Map" resultType="java.lang.Integer">
+    SELECT min(id)
+    FROM auth_user
+  </select>
+
+  <select id="findMaxId" parameterType="java.util.Map" resultType="java.lang.Integer">
+    SELECT max(id)
+    FROM auth_user
+  </select>
+
+</mapper>

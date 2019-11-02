@@ -1,0 +1,182 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="goods">
+
+  <resultMap id="RM-IMAGESIMPLE" type="cn.ganzhiqiang.ares.goods.domian.ImageSimpleDO">
+    <result property="id" column="id"/>
+    <result property="goodsId" column="goods_id"/>
+    <result property="path" column="path"/>
+    <result property="thumPath" column="thum_path"/>
+  </resultMap>
+
+  <resultMap id="RM-GOODS" type="cn.ganzhiqiang.ares.goods.domian.GoodsDO">
+    <result property="id" column="id"/>
+    <result property="publishUserId" column="publish_user_id"/>
+    <result property="title" column="title"/>
+    <result property="descible" column="descible"/>
+    <result property="price" column="price"/>
+    <result property="oldPrice" column="old_price"/>
+    <result property="freight" column="freight"/>
+    <result property="category" column="category"/>
+    <result property="isDonation" column="is_donation"/>
+    <result property="status" column="status"/>
+    <result property="lookCount" column="look_count"/>
+    <result property="publishAddress" column="publish_address"/>
+    <result property="creatDatetime" column="creat_datetime"/>
+    <result property="gmtUpdated" column="gmt_updated"/>
+  </resultMap>
+
+  <sql id="GOODS-COLUMN">
+    id,
+    publish_user_id,
+    title,
+    descible,
+    price,
+    old_price,
+    category,
+    publish_address,
+    is_donation,
+    status,
+    look_count,
+    creat_datetime,
+    gmt_updated
+  </sql>
+
+  <sql id="IMAGE-COLUMN">
+    id,
+    goods_id,
+    path,
+    thum_path
+  </sql>
+
+  <select id="findGoods" parameterType="java.util.Map" resultMap="RM-GOODS">
+    SELECT <include refid="GOODS-COLUMN"/>
+    FROM goods
+    WHERE id = #{goodsId}
+  </select>
+
+  <select id="queryGoods" parameterType="java.util.Map" resultMap="RM-GOODS">
+    SELECT <include refid="GOODS-COLUMN"/>
+    FROM goods
+    WHERE status <![CDATA[ <> ]]> 5
+    ORDER BY creat_datetime DESC
+    LIMIT #{start}, #{limit}
+  </select>
+
+  <select id="queryDonationGoods" parameterType="java.util.Map" resultMap="RM-GOODS">
+    SELECT <include refid="GOODS-COLUMN"/>
+    FROM goods
+    WHERE status <![CDATA[ <> ]]> 5 AND is_donation = 1
+    ORDER BY creat_datetime DESC
+    LIMIT #{start}, #{limit}
+  </select>
+
+  <select id="queryHottest" parameterType="java.util.Map" resultMap="RM-GOODS">
+    SELECT <include refid="GOODS-COLUMN"/>
+    FROM goods
+    WHERE status <![CDATA[ <> ]]> 5
+    ORDER BY look_count DESC
+    LIMIT #{start}, #{limit}
+  </select>
+
+  <select id="queryGoodsByIds" parameterType="java.util.Map" resultMap="RM-GOODS">
+    SELECT <include refid="GOODS-COLUMN"/>
+    FROM goods
+    WHERE id IN
+    <foreach collection="goodsIds" item="item" open="(" close=")" separator=",">
+    #{item}
+    </foreach>
+    AND status <![CDATA[ <> ]]> 5
+    ORDER BY creat_datetime DESC
+  </select>
+
+  <select id="queryGoodsByUid" parameterType="java.util.Map" resultMap="RM-GOODS">
+    SELECT <include refid="GOODS-COLUMN" />
+    FROM goods
+    WHERE publish_user_id = #{userId}
+    AND status <![CDATA[ <> ]]> 5
+    ORDER BY creat_datetime DESC
+    LIMIT #{start}, #{limit}
+  </select>
+
+  <select id="queryGoodsIdsByUid" parameterType="java.util.Map" resultType="java.lang.Integer">
+    SELECT id
+    FROM goods
+    WHERE publish_user_id = #{userId}
+    AND status <![CDATA[ <> ]]> 5
+    ORDER BY creat_datetime DESC
+    LIMIT #{start}, #{limit}
+  </select>
+
+  <select id="queryGoodsByKeyWord" parameterType="java.util.Map" resultMap="RM-GOODS">
+    SELECT <include refid="GOODS-COLUMN"/>
+    FROM goods
+    WHERE title LIKE "%"#{keyword}"%"
+    ORDER BY creat_datetime DESC
+    LIMIT #{start}, #{limit}
+  </select>
+
+  <select id="findImageById" parameterType="java.util.Map" resultMap="RM-IMAGESIMPLE">
+    SELECT <include refid="IMAGE-COLUMN" />
+    FROM image_image
+    WHERE id = #{imageId}
+  </select>
+
+  <select id="queryImageByGoodsId" parameterType="java.util.Map" resultMap="RM-IMAGESIMPLE">
+    SELECT <include refid="IMAGE-COLUMN"/>
+    FROM image_image
+    WHERE goods_id = #{goodsId}
+  </select>
+
+  <select id="queryImageByGoodsIdList" parameterType="java.util.Map" resultMap="RM-IMAGESIMPLE">
+    SELECT <include refid="IMAGE-COLUMN"/>
+    FROM image_image
+    WHERE goods_id IN
+    <foreach collection="goodsIds" item="item" open="(" close=")" separator=",">
+      #{item}
+    </foreach>
+  </select>
+
+  <insert id="insertGoods" parameterType="cn.ganzhiqiang.ares.goods.domian.GoodsDO"
+    keyColumn="id" keyProperty="id" useGeneratedKeys="true">
+    INSERT INTO goods(
+    publish_user_id, title, descible, price, old_price, freight, category,
+    publish_address, is_donation, creat_datetime)
+    VALUES (#{publishUserId}, #{title}, #{descible}, #{price}, #{oldPrice}, #{freight}, #{category},
+    #{publishAddress}, #{isDonation}, now())
+  </insert>
+
+  <insert id="insertImageList" parameterType="java.util.List"
+    keyColumn="id" keyProperty="id" useGeneratedKeys="true">
+    INSERT INTO image_image(goods_id, path, thum_path, creat_datetime) VALUES
+    <foreach collection="list" item="item" index="index" separator=",">
+      (#{item.goodsId}, #{item.path}, #{item.thumPath}, now())
+    </foreach>
+  </insert>
+
+  <update id="incrLookCount">
+    UPDATE goods
+    SET look_count = look_count + 1
+    WHERE id = #{goodsId}
+  </update>
+  
+  <select id="countGoods" parameterType="java.util.Map" resultType="java.lang.Integer">
+    SELECT COUNT(id)
+    FROM goods
+    WHERE status <![CDATA[ <> ]]> 5
+  </select>
+
+  <select id="findMinId" parameterType="java.util.Map" resultType="java.lang.Integer">
+    SELECT min(id)
+    FROM goods
+    WHERE status <![CDATA[ <> ]]> 5
+  </select>
+
+  <select id="findMaxId" parameterType="java.util.Map" resultType="java.lang.Integer">
+    SELECT max(id)
+    FROM goods
+    WHERE status <![CDATA[ <> ]]> 5
+  </select>
+
+</mapper>
