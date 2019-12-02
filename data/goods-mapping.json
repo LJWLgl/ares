@@ -1,0 +1,26 @@
+{
+  "ayy_goods": {
+    "_all": {
+      "enabled": false
+    },
+    "properties": {
+      "id": {
+        "type": "keyword"
+      },
+      "title": {
+        "type": "keyword",
+        "index": "not_analyzed"
+      },
+      "descible": {
+        "type": "text",
+        "index": "not_analyzed"
+      },
+      "price": {
+        "type": "double"
+      },
+      "status": {
+        "type": "keyword"
+      }
+    }
+  }
+}

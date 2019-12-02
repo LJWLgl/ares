@@ -28,4 +28,10 @@ public class ConfigHelperTest {
     System.out.println(value);
   }
 
+  @Test
+  public void test02() {
+
+  }
+
+
 }

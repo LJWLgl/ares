@@ -204,6 +204,27 @@
       <artifactId>junit</artifactId>
       <scope>test</scope>
     </dependency>
+
+    <!--elasticsearch begin -->
+    <!--elasticsearch base-->
+    <dependency>
+      <groupId>org.elasticsearch</groupId>
+      <artifactId>elasticsearch</artifactId>
+      <version>6.4.1</version>
+    </dependency>
+    <!-- Java Low Level REST Client -->
+    <dependency>
+      <groupId>org.elasticsearch.client</groupId>
+      <artifactId>elasticsearch-rest-client</artifactId>
+      <version>6.4.1</version>
+    </dependency>
+    <!-- Java High Level REST Client -->
+    <dependency>
+      <groupId>org.elasticsearch.client</groupId>
+      <artifactId>elasticsearch-rest-high-level-client</artifactId>
+      <version>6.4.1</version>
+    </dependency>
+    <!--elasticsearch end -->
   </dependencies>
 
   <build>
@@ -224,6 +245,11 @@
     </plugins>
   </build>
   <repositories>
+      <repository>
+        <id>nexus-aliyun</id>
+        <name>Nexus aliyun</name>
+        <url>http://maven.aliyun.com/nexus/content/groups/public</url>
+      </repository>
     <!--<repository>-->
       <!--<id>nexus</id>-->
       <!--<url>http://maven.dev.duitang.com/nexus/content/groups/public/</url>-->
