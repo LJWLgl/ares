@@ -16,9 +16,9 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class BaseGoodsCount {
 
-  private Integer resourceId;
-  private Long favoriteCount;
-  private Long likeCount;
-  private Long commentCount;
+    private Integer resourceId;
+    private Long favoriteCount;
+    private Long likeCount;
+    private Long commentCount;
 
 }

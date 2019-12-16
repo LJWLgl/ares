@@ -17,13 +17,13 @@ import cn.ganzhiqiang.ares.common.warpper.NapiRespWrapper;
 @ControllerAdvice
 public class AresExceptionHandler {
 
-  private Logger logger = LoggerFactory.getLogger(AresExceptionHandler.class);
+    private Logger logger = LoggerFactory.getLogger(AresExceptionHandler.class);
 
-  @ResponseBody
-  @ExceptionHandler(value = Exception.class)
-  public NapiRespWrapper<String> exceptionHandler(Exception ex) {
-    logger.info("ares request error", ex);
-    return new NapiRespWrapper<>(NapiRespStatus.INNER_ERROR, ex.getMessage());
-  }
+    @ResponseBody
+    @ExceptionHandler(value = Exception.class)
+    public NapiRespWrapper<String> exceptionHandler(Exception ex) {
+        logger.info("ares request error", ex);
+        return new NapiRespWrapper<>(NapiRespStatus.INNER_ERROR, ex.getMessage());
+    }
 
 }

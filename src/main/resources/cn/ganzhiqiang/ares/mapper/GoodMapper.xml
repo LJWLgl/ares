@@ -117,6 +117,13 @@
     LIMIT #{start}, #{limit}
   </select>
 
+  <select id="queryGoodsGtId" parameterType="java.util.Map" resultMap="RM-GOODS">
+    SELECT <include refid="GOODS-COLUMN"/>
+    FROM goods
+    WHERE id <![CDATA[ > ]]> #{beginId}
+    LIMIT #{limit}
+  </select>
+
   <select id="findImageById" parameterType="java.util.Map" resultMap="RM-IMAGESIMPLE">
     SELECT <include refid="IMAGE-COLUMN" />
     FROM image_image

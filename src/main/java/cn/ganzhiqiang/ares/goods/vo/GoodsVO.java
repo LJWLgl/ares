@@ -24,49 +24,49 @@ import java.util.List;
 public class
 GoodsVO {
 
-  private Integer id;
+    private Integer id;
 
-  @JsonProperty(value = "user_vo")
-  private UserVO userVO;
+    @JsonProperty(value = "user_vo")
+    private UserVO userVO;
 
-  private String title;
+    private String title;
 
-  private String descible;
+    private String descible;
 
-  private List<ImageVO> photos;
+    private List<ImageVO> photos;
 
-  private Double price;
+    private Double price;
 
-  @JsonProperty(value = "old_price")
-  private Double oldPrice;
+    @JsonProperty(value = "old_price")
+    private Double oldPrice;
 
-  private Double freight;
+    private Double freight;
 
-  @JsonProperty(value = "publish_address")
-  private String publishAddress;
+    @JsonProperty(value = "publish_address")
+    private String publishAddress;
 
-  @JsonProperty(value = "is_donation")
-  private Integer isDonation;
+    @JsonProperty(value = "is_donation")
+    private Integer isDonation;
 
-  @JsonProperty(value = "publish_date")
-  private String publishDate;
+    @JsonProperty(value = "publish_date")
+    private String publishDate;
 
-  @JsonProperty(value = "look_count")
-  private Long lookCount; // 商品浏览数
+    @JsonProperty(value = "look_count")
+    private Long lookCount; // 商品浏览数
 
-  @JsonProperty(value = "comment_count")
-  private Long commentCount; // 评论数
+    @JsonProperty(value = "comment_count")
+    private Long commentCount; // 评论数
 
-  @JsonProperty(value = "like_count")
-  private Long likeCount;
+    @JsonProperty(value = "like_count")
+    private Long likeCount;
 
-  @JsonProperty(value = "favorite_count")
-  private Long favoriteCount;
+    @JsonProperty(value = "favorite_count")
+    private Long favoriteCount;
 
-  private List<String> tags;
+    private List<String> tags;
 
-  private Integer likeId;
+    private Integer likeId;
 
-  private Integer favoriteId;
+    private Integer favoriteId;
 
 }

@@ -18,14 +18,14 @@ import java.util.Date;
 @NoArgsConstructor
 public class LikeDO {
 
-  private Integer id;
+    private Integer id;
 
-  private Integer userId;
+    private Integer userId;
 
-  private Integer resourceId;
+    private Integer resourceId;
 
-  private Integer resourceType;
+    private Integer resourceType;
 
-  private Date gmtCreate;
+    private Date gmtCreate;
 
 }

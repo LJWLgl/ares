@@ -21,45 +21,45 @@ import java.util.List;
 @Service
 public class LikeService {
 
-  @Resource
-  private LikeDao likeDao;
+    @Resource
+    private LikeDao likeDao;
 
-  @Resource
-  private CounterService counterService;
+    @Resource
+    private CounterService counterService;
 
-  public List<LikeDO> queryLikeByUid(Integer userId, int start, int limit) {
-    List<LikeDO> likes = likeDao.queryLikeByUid(userId, start, limit);
-    if (CollectionUtils.isEmpty(likes)) {
-      return new ArrayList<>();
+    public List<LikeDO> queryLikeByUid(Integer userId, int start, int limit) {
+        List<LikeDO> likes = likeDao.queryLikeByUid(userId, start, limit);
+        if (CollectionUtils.isEmpty(likes)) {
+            return new ArrayList<>();
+        }
+        return likes;
     }
-    return likes;
-  }
 
-  public LikeDO findLikeByResourceId(Integer resourceId, TypeEnum type) {
-    return likeDao.findLikeByResourceId(resourceId, type.getValue());
-  }
-
-  public Integer like(Integer uid, Integer resourceId, TypeEnum type) {
-
-    counterService.incrCount(resourceId, 2);
-    counterService.incrCount(uid, 5);
-
-    LikeDO likeDO = new LikeDO();
-    likeDO.setUserId(uid);
-    likeDO.setResourceId(resourceId);
-    likeDO.setResourceType(type.getValue());
-    return likeDao.insertLike(likeDO);
-  }
-
-  public boolean unLike(Integer likeId) {
-    LikeDO likeDO = likeDao.findLikeById(likeId);
-    if (likeDO == null) {
-      return false;
+    public LikeDO findLikeByResourceId(Integer resourceId, TypeEnum type) {
+        return likeDao.findLikeByResourceId(resourceId, type.getValue());
     }
-    counterService.decrCount(likeDO.getResourceId(), 2);
-    counterService.decrCount(likeDO.getUserId(), 5);
-    likeDao.deleteLike(likeId);
-    return true;
-  }
+
+    public Integer like(Integer uid, Integer resourceId, TypeEnum type) {
+
+        counterService.incrCount(resourceId, 2);
+        counterService.incrCount(uid, 5);
+
+        LikeDO likeDO = new LikeDO();
+        likeDO.setUserId(uid);
+        likeDO.setResourceId(resourceId);
+        likeDO.setResourceType(type.getValue());
+        return likeDao.insertLike(likeDO);
+    }
+
+    public boolean unLike(Integer likeId) {
+        LikeDO likeDO = likeDao.findLikeById(likeId);
+        if (likeDO == null) {
+            return false;
+        }
+        counterService.decrCount(likeDO.getResourceId(), 2);
+        counterService.decrCount(likeDO.getUserId(), 5);
+        likeDao.deleteLike(likeId);
+        return true;
+    }
 
 }

@@ -19,44 +19,44 @@ import java.util.Map;
 @Repository
 public class LikeDao {
 
-  private static final String MAPPING_PREFIX = "like.";
+    private static final String MAPPING_PREFIX = "like.";
 
-  @Resource
-  private SqlSessionTemplate readTpl;
+    @Resource
+    private SqlSessionTemplate readTpl;
 
-  @Resource
-  private SqlSessionTemplate writeTpl;
+    @Resource
+    private SqlSessionTemplate writeTpl;
 
 
-  public int insertLike(LikeDO likeDO) {
-    int result = writeTpl.insert(MAPPING_PREFIX + "insertLike", likeDO);
-    return result == 0 ? 0 : likeDO.getId();
-  }
+    public int insertLike(LikeDO likeDO) {
+        int result = writeTpl.insert(MAPPING_PREFIX + "insertLike", likeDO);
+        return result == 0 ? 0 : likeDO.getId();
+    }
 
-  public LikeDO findLikeById(Integer likeId) {
-    Map params = new HashMap();
-    params.put("likeId", likeId);
-    return readTpl.selectOne(MAPPING_PREFIX + "findLikeById", params);
-  }
+    public LikeDO findLikeById(Integer likeId) {
+        Map params = new HashMap();
+        params.put("likeId", likeId);
+        return readTpl.selectOne(MAPPING_PREFIX + "findLikeById", params);
+    }
 
-  public LikeDO findLikeByResourceId(Integer resourceId, Integer resourceType) {
-    Map params = new HashMap();
-    params.put("resourceId", resourceId);
-    params.put("resourceType", resourceType);
-    return readTpl.selectOne(MAPPING_PREFIX + "findLikeByResourceId", params);
-  }
+    public LikeDO findLikeByResourceId(Integer resourceId, Integer resourceType) {
+        Map params = new HashMap();
+        params.put("resourceId", resourceId);
+        params.put("resourceType", resourceType);
+        return readTpl.selectOne(MAPPING_PREFIX + "findLikeByResourceId", params);
+    }
 
-  public List<LikeDO> queryLikeByUid(Integer uid, int start, int limit) {
-    Map params = new HashMap();
-    params.put("userId", uid);
-    params.put("start", start);
-    params.put("limit", limit);
-    return readTpl.selectList(MAPPING_PREFIX + "queryLikeByUserId", params);
-  }
+    public List<LikeDO> queryLikeByUid(Integer uid, int start, int limit) {
+        Map params = new HashMap();
+        params.put("userId", uid);
+        params.put("start", start);
+        params.put("limit", limit);
+        return readTpl.selectList(MAPPING_PREFIX + "queryLikeByUserId", params);
+    }
 
-  public int deleteLike(Integer likeId) {
-    Map params = new HashMap();
-    params.put("likeId", likeId);
-    return writeTpl.delete(MAPPING_PREFIX + "deleteLike", params);
-  }
+    public int deleteLike(Integer likeId) {
+        Map params = new HashMap();
+        params.put("likeId", likeId);
+        return writeTpl.delete(MAPPING_PREFIX + "deleteLike", params);
+    }
 }

@@ -15,22 +15,22 @@ import java.util.stream.Collectors;
 
 public class NapiCommentAssembler {
 
-  public static CommentVO toVO(BaseComment baseComment) {
-    if (baseComment == null) {
-      return null;
+    public static CommentVO toVO(BaseComment baseComment) {
+        if (baseComment == null) {
+            return null;
+        }
+        return CommentVO.builder()
+                .id(baseComment.getId())
+                .userBase(baseComment.getUserBase())
+                .content(baseComment.getContent())
+                .commentDate(DateUtil.standardNapiDate(baseComment.getGmtCreate()))
+                .build();
     }
-    return CommentVO.builder()
-        .id(baseComment.getId())
-        .userBase(baseComment.getUserBase())
-        .content(baseComment.getContent())
-        .commentDate(DateUtil.standardNapiDate(baseComment.getGmtCreate()))
-        .build();
-  }
 
-  public static List<CommentVO> toVOList(List<BaseComment> baseComments) {
-    return baseComments.stream()
-        .map(NapiCommentAssembler::toVO)
-        .filter(Objects::nonNull)
-        .collect(Collectors.toList());
-  }
+    public static List<CommentVO> toVOList(List<BaseComment> baseComments) {
+        return baseComments.stream()
+                .map(NapiCommentAssembler::toVO)
+                .filter(Objects::nonNull)
+                .collect(Collectors.toList());
+    }
 }

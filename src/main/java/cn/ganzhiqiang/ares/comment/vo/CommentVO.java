@@ -23,13 +23,13 @@ import java.util.Date;
 @NoArgsConstructor
 public class CommentVO {
 
-  private Integer id;
+    private Integer id;
 
-  @JsonProperty(value = "user_base")
-  private UserBase userBase;
+    @JsonProperty(value = "user_base")
+    private UserBase userBase;
 
-  private String content;
+    private String content;
 
-  @JsonProperty(value = "comment_date")
-  private String commentDate;
+    @JsonProperty(value = "comment_date")
+    private String commentDate;
 }

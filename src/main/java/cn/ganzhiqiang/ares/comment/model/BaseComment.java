@@ -20,16 +20,16 @@ import java.util.Date;
 @NoArgsConstructor
 public class BaseComment {
 
-  private Integer id;
+    private Integer id;
 
-  private UserBase userBase;
+    private UserBase userBase;
 
-  private String content;
+    private String content;
 
-  private Integer resourceId;
+    private Integer resourceId;
 
-  private Integer resourceType;
+    private Integer resourceType;
 
-  private Date gmtCreate;
+    private Date gmtCreate;
 
 }

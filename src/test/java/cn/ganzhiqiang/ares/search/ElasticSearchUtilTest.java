@@ -9,6 +9,7 @@ import org.springframework.boot.test.SpringApplicationConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import cn.ganzhiqiang.ares.Ares;
+import cn.ganzhiqiang.ares.search.service.ESSearchService;
 
 import javax.annotation.Resource;
 
@@ -20,23 +21,30 @@ import java.util.Map;
 @SpringApplicationConfiguration(classes = Ares.class)
 public class ElasticSearchUtilTest {
 
-  @Resource
-  private ElasticSearchUtil elasticSearch;
-  @Resource
-  private RestHighLevelClient client;
+    @Resource
+    private ElasticSearchHelper elasticSearch;
+    @Resource
+    private RestHighLevelClient client;
+    @Resource
+    private ESSearchService esSearchService;
 
 
-  @Test
-  public void  test() throws IOException {
-    Map<String, Object> jsonMap = new HashMap<>();
-    jsonMap.put("title_cn", "罗小黑水杯");
-    jsonMap.put("title_en", "luxiaohe beizi");
-    jsonMap.put("price", 59);
-    jsonMap.put("status", 6);
-    IndexRequest indexRequest = new IndexRequest("ayy_goods", "ayy_goods", "3")
-        .source(jsonMap);
-    IndexResponse indexResponse = client.index(indexRequest);
-    System.out.println("ee");
-  }
+    @Test
+    public void test() throws IOException {
+        Map<String, Object> jsonMap = new HashMap<>();
+        jsonMap.put("title_cn", "罗小黑水杯");
+        jsonMap.put("title_en", "luxiaohe beizi");
+        jsonMap.put("price", 59);
+        jsonMap.put("status", 6);
+        IndexRequest indexRequest = new IndexRequest("ayy_goods", "ayy_goods", "3")
+                .source(jsonMap);
+        IndexResponse indexResponse = client.index(indexRequest);
+        System.out.println("ee");
+    }
+
+    @Test
+    public void test1() {
+//        esSearchService.searchGoodsByKeyWord("水壶", 1, 10);
+    }
 
 }

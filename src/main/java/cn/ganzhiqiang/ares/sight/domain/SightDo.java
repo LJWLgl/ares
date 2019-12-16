@@ -16,7 +16,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class SightDo {
 
-  private Long id;
-  private String link;
+    private Long id;
+    private String link;
 
 }

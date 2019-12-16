@@ -22,72 +22,72 @@ import java.util.stream.Collectors;
 
 public class BaseGoodsAssembler {
 
-  public static BaseGoods toBase(GoodsDO goodsDO, List<ImageSimpleDO> images, BaseGoodsCount count) {
+    public static BaseGoods toBase(GoodsDO goodsDO, List<ImageSimpleDO> images, BaseGoodsCount count) {
 
-    return BaseGoods.builder()
-        .id(goodsDO.getId())
-        .publishUserId(goodsDO.getPublishUserId())
-        .title(goodsDO.getTitle())
-        .descible(goodsDO.getDescible())
-        .photos(Converter.toDtos(images, ImageVO.class))
-        .price(goodsDO.getPrice())
-        .oldPrice(goodsDO.getOldPrice())
-        .freight(goodsDO.getFreight())
-        .category(goodsDO.getCategory())
-        .publishAddress(goodsDO.getPublishAddress())
-        .isDonation(goodsDO.getIsDonation())
-        .status(goodsDO.getStatus())
-        .lookCount(goodsDO.getLookCount())
-        .likeId(0)
-        .favoriteId(0)
-        .baseGoodsCount(count)
-        .creatDatetime(goodsDO.getCreatDatetime())
-        .gmtUpdated(goodsDO.getGmtUpdated())
-        .build();
-  }
-
-  public static List<BaseGoods> toBaseList(List<GoodsDO> goodsDOS, List<ImageSimpleDO> imageList, List<BaseGoodsCount> baseGoodsCounts) {
-
-    if (CollectionUtils.isEmpty(goodsDOS) || CollectionUtils.isEmpty(imageList)) {
-      return new ArrayList<>();
+        return BaseGoods.builder()
+                .id(goodsDO.getId())
+                .publishUserId(goodsDO.getPublishUserId())
+                .title(goodsDO.getTitle())
+                .descible(goodsDO.getDescible())
+                .photos(Converter.toDtos(images, ImageVO.class))
+                .price(goodsDO.getPrice())
+                .oldPrice(goodsDO.getOldPrice())
+                .freight(goodsDO.getFreight())
+                .category(goodsDO.getCategory())
+                .publishAddress(goodsDO.getPublishAddress())
+                .isDonation(goodsDO.getIsDonation())
+                .status(goodsDO.getStatus())
+                .lookCount(goodsDO.getLookCount())
+                .likeId(0)
+                .favoriteId(0)
+                .baseGoodsCount(count)
+                .creatDatetime(goodsDO.getCreatDatetime())
+                .gmtUpdated(goodsDO.getGmtUpdated())
+                .build();
     }
 
-    Map<Integer, List<ImageSimpleDO>> imageMap = imageList.stream()
-        .collect(Collectors.groupingBy(ImageSimpleDO::getGoodsId));
+    public static List<BaseGoods> toBaseList(List<GoodsDO> goodsDOS, List<ImageSimpleDO> imageList, List<BaseGoodsCount> baseGoodsCounts) {
 
-    Map<Integer, BaseGoodsCount> countMap = baseGoodsCounts.stream()
-        .collect(Collectors.toMap(BaseGoodsCount::getResourceId, Function.identity()));
+        if (CollectionUtils.isEmpty(goodsDOS) || CollectionUtils.isEmpty(imageList)) {
+            return new ArrayList<>();
+        }
 
-    return goodsDOS.stream()
-        .map(item -> toBase(item, imageMap.get(item.getId()), countMap.get(item.getId())))
-        .collect(Collectors.toList());
-  }
-  
-  public static List<ImageSimpleDO> toImageDO(List<ImageVO> imageVOS, int goodsId)  {
-    
-    return imageVOS.stream().map(item -> {
-          return ImageSimpleDO.builder()
-              .goodsId(goodsId)
-              .path(item.getPath())
-              .build();
+        Map<Integer, List<ImageSimpleDO>> imageMap = imageList.stream()
+                .collect(Collectors.groupingBy(ImageSimpleDO::getGoodsId));
+
+        Map<Integer, BaseGoodsCount> countMap = baseGoodsCounts.stream()
+                .collect(Collectors.toMap(BaseGoodsCount::getResourceId, Function.identity()));
+
+        return goodsDOS.stream()
+                .map(item -> toBase(item, imageMap.get(item.getId()), countMap.get(item.getId())))
+                .collect(Collectors.toList());
+    }
+
+    public static List<ImageSimpleDO> toImageDO(List<ImageVO> imageVOS, int goodsId) {
+
+        return imageVOS.stream().map(item -> {
+            return ImageSimpleDO.builder()
+                    .goodsId(goodsId)
+                    .path(item.getPath())
+                    .build();
         })
-        .collect(Collectors.toList());
-    
-  }
-  
-  public static GoodsDO toGoodsDO(BaseGoods baseGoods) {
-    
-    return GoodsDO.builder()
-        .publishUserId(baseGoods.getPublishUserId())
-        .title(baseGoods.getTitle())
-        .descible(baseGoods.getDescible())
-        .price(baseGoods.getPrice())
-        .oldPrice(baseGoods.getOldPrice())
-        .freight(baseGoods.getFreight())
-        .category(baseGoods.getCategory())
-        .publishAddress(baseGoods.getPublishAddress())
-        .isDonation(baseGoods.getIsDonation())
-        .build();
-  }
-  
+                .collect(Collectors.toList());
+
+    }
+
+    public static GoodsDO toGoodsDO(BaseGoods baseGoods) {
+
+        return GoodsDO.builder()
+                .publishUserId(baseGoods.getPublishUserId())
+                .title(baseGoods.getTitle())
+                .descible(baseGoods.getDescible())
+                .price(baseGoods.getPrice())
+                .oldPrice(baseGoods.getOldPrice())
+                .freight(baseGoods.getFreight())
+                .category(baseGoods.getCategory())
+                .publishAddress(baseGoods.getPublishAddress())
+                .isDonation(baseGoods.getIsDonation())
+                .build();
+    }
+
 }

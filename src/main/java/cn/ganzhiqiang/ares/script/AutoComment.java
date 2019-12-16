@@ -30,70 +30,70 @@ import java.util.Random;
 @RestController
 public class AutoComment {
 
-  private static String PATH_DATA = "/gzq/data/commment.txt";
+    private static String PATH_DATA = "/gzq/data/commment.txt";
 
-  @Resource
-  private CommentService commentService;
+    @Resource
+    private CommentService commentService;
 
-  @Resource
-  private CommodityService commodityService;
+    @Resource
+    private CommodityService commodityService;
 
-  @Resource
-  private PersonService personService;
+    @Resource
+    private PersonService personService;
 
-  @RequestMapping(value = "script/comment/")
-  public NapiRespWrapper<String> autoComment() {
-    int maxUid = personService.findMaxId();
-    int minUid = personService.findMinId();
-    Random random = new Random();
-    int randomUid = random.nextInt(maxUid);
-    int uid = randomUid <= minUid ? minUid : randomUid;
-    while (personService.findUserDetailByUid(uid) == null) {
-      randomUid = random.nextInt(maxUid);
-      uid = randomUid <= minUid ? minUid :randomUid;
+    @RequestMapping(value = "script/comment/")
+    public NapiRespWrapper<String> autoComment() {
+        int maxUid = personService.findMaxId();
+        int minUid = personService.findMinId();
+        Random random = new Random();
+        int randomUid = random.nextInt(maxUid);
+        int uid = randomUid <= minUid ? minUid : randomUid;
+        while (personService.findUserDetailByUid(uid) == null) {
+            randomUid = random.nextInt(maxUid);
+            uid = randomUid <= minUid ? minUid : randomUid;
+        }
+
+        int goodsMinId = commodityService.findMinId();
+        int goodsMaxId = commodityService.findMaxId();
+        int goodsRandomId = random.nextInt(goodsMaxId);
+        int goodsId = goodsRandomId <= goodsMinId ? goodsMinId : goodsRandomId;
+        BaseGoods goods = commodityService.findGoods(goodsId);
+        while (goods == null || goods.getPublishUserId() == uid) {
+            goodsRandomId = random.nextInt(goodsMaxId);
+            goodsId = goodsRandomId <= goodsMinId ? goodsMinId : goodsRandomId;
+            goods = commodityService.findGoods(goodsId);
+        }
+
+
+        String comment = orderComment();
+        if (StringUtils.isEmpty(comment)) {
+            return new NapiRespWrapper<>("failed, comment is null");
+        }
+        comment = comment.replace("${}", goods.getTitle());
+        commentService.insertComment(uid, comment, goodsId, TypeEnum.GOODS.getValue());
+
+        return new NapiRespWrapper<>("success, goods id :" + String.valueOf(goodsId));
     }
 
-    int goodsMinId = commodityService.findMinId();
-    int goodsMaxId = commodityService.findMaxId();
-    int goodsRandomId = random.nextInt(goodsMaxId);
-    int goodsId = goodsRandomId <= goodsMinId ? goodsMinId : goodsRandomId;
-    BaseGoods goods = commodityService.findGoods(goodsId);
-    while ( goods == null || goods.getPublishUserId() == uid) {
-      goodsRandomId = random.nextInt(goodsMaxId);
-      goodsId = goodsRandomId <= goodsMinId ? goodsMinId : goodsRandomId;
-      goods = commodityService.findGoods(goodsId);
+    private String orderComment() {
+        List<String> commmets = new ArrayList<>();
+        File file = new File(PATH_DATA);
+        try {
+            InputStreamReader reader = new InputStreamReader(new FileInputStream(file));
+            BufferedReader br = new BufferedReader(reader);
+            String line = "";
+            line = br.readLine();
+            while (line != null) {
+                commmets.add(line);
+                line = br.readLine();
+            }
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+        if (CollectionUtils.isEmpty(commmets)) {
+            return null;
+        }
+        Random random = new Random();
+        return commmets.get(random.nextInt(commmets.size()));
     }
-
-
-    String comment = orderComment();
-    if (StringUtils.isEmpty(comment)) {
-      return new NapiRespWrapper<>("failed, comment is null");
-    }
-    comment = comment.replace("${}", goods.getTitle());
-    commentService.insertComment(uid, comment, goodsId, TypeEnum.GOODS.getValue());
-
-    return new NapiRespWrapper<>("success, goods id :" + String.valueOf(goodsId));
-  }
-
-  private String orderComment() {
-    List<String> commmets = new ArrayList<>();
-    File file = new File(PATH_DATA);
-    try {
-      InputStreamReader reader = new InputStreamReader(new FileInputStream(file));
-      BufferedReader br = new BufferedReader(reader);
-      String line = "";
-      line = br.readLine();
-      while (line != null) {
-        commmets.add(line);
-        line = br.readLine();
-      }
-    } catch (Exception e) {
-      System.out.println(e);
-    }
-    if (CollectionUtils.isEmpty(commmets)) {
-      return null;
-    }
-    Random random = new Random();
-    return commmets.get(random.nextInt(commmets.size()));
-  }
 }

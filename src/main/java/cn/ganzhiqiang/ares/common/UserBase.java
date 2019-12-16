@@ -16,14 +16,14 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class UserBase {
 
-  private Integer id;
+    private Integer id;
 
-  private String nickname;
+    private String nickname;
 
-  private Integer gender; // 0 女性， 1 男性
+    private Integer gender; // 0 女性， 1 男性
 
-  private String avatar;
+    private String avatar;
 
-  private String address;
+    private String address;
 
 }

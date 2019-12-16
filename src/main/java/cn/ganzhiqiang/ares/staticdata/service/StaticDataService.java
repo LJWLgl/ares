@@ -20,22 +20,22 @@ import java.util.stream.Collectors;
 @Service
 public class StaticDataService {
 
-  @Resource
-  private StaticDataDao staticDataDao;
+    @Resource
+    private StaticDataDao staticDataDao;
 
-  public Map<Integer, String> querySchoolMap() {
-    List<SchoolDO> schoolDOS = staticDataDao.querySchool();
-    return schoolDOS.stream()
-        .filter(Objects::nonNull)
-        .filter(item -> Objects.nonNull(item.getName()))
-        .collect(Collectors.toMap(SchoolDO::getId, SchoolDO::getName));
-  }
+    public Map<Integer, String> querySchoolMap() {
+        List<SchoolDO> schoolDOS = staticDataDao.querySchool();
+        return schoolDOS.stream()
+                .filter(Objects::nonNull)
+                .filter(item -> Objects.nonNull(item.getName()))
+                .collect(Collectors.toMap(SchoolDO::getId, SchoolDO::getName));
+    }
 
-  public List<String> querySchool() {
-    List<SchoolDO> schoolDOS = staticDataDao.querySchool();
-    return schoolDOS.stream()
-        .map(SchoolDO::getName)
-        .filter(Objects::nonNull)
-        .collect(Collectors.toList());
-  }
+    public List<String> querySchool() {
+        List<SchoolDO> schoolDOS = staticDataDao.querySchool();
+        return schoolDOS.stream()
+                .map(SchoolDO::getName)
+                .filter(Objects::nonNull)
+                .collect(Collectors.toList());
+    }
 }

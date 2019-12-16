@@ -20,30 +20,30 @@ import cn.ganzhiqiang.ares.common.UserBase;
 @NoArgsConstructor
 public class UserVO {
 
-  @JsonProperty(value = "user_base")
-  private UserBase userBase;
+    @JsonProperty(value = "user_base")
+    private UserBase userBase;
 
-  private String telephone;
+    private String telephone;
 
-  private String email;
+    private String email;
 
-  private Integer integral; // 积分
+    private Integer integral; // 积分
 
-  private Integer school; // 1 安徽师范大学
+    private Integer school; // 1 安徽师范大学
 
-  @JsonProperty(value = "ship_address")
-  private String shipAddress;
+    @JsonProperty(value = "ship_address")
+    private String shipAddress;
 
-  @JsonProperty(value = "publish_count")
-  private Long publishCount;
+    @JsonProperty(value = "publish_count")
+    private Long publishCount;
 
-  @JsonProperty(value = "like_count")
-  private Long likeCount;
+    @JsonProperty(value = "like_count")
+    private Long likeCount;
 
-  @JsonProperty(value = "favorite_count")
-  private Long favoriteCount;
+    @JsonProperty(value = "favorite_count")
+    private Long favoriteCount;
 
-  @JsonProperty(value = "look_count")
-  private Long lookCount;
+    @JsonProperty(value = "look_count")
+    private Long lookCount;
 
 }

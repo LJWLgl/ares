@@ -16,8 +16,8 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class BaseUserCount {
 
-  private Long publishCount; // 发布数
-  private Long likeCount; // 用户喜欢数
-  private Long favoriteCount; // 收藏数
+    private Long publishCount; // 发布数
+    private Long likeCount; // 用户喜欢数
+    private Long favoriteCount; // 收藏数
 
 }

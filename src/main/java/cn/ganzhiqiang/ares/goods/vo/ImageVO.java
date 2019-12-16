@@ -16,12 +16,12 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class ImageVO {
 
-  private Integer id;
-  private String path;
-  private String width;
-  private String height;
+    private Integer id;
+    private String path;
+    private String width;
+    private String height;
 
-  public ImageVO(String path) {
-    this.path = path;
-  }
+    public ImageVO(String path) {
+        this.path = path;
+    }
 }

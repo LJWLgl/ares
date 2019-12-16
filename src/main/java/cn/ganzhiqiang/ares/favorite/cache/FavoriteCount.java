@@ -17,32 +17,32 @@ import java.util.Map;
  **/
 
 @Repository
-public class FavoriteCount extends AbstractCounter{
+public class FavoriteCount extends AbstractCounter {
 
-  private static final String FAVORITE_FIELD = "favorite";
+    private static final String FAVORITE_FIELD = "favorite";
 
-  @Resource
-  private StringRedisTemplate redisCounter;
+    @Resource
+    private StringRedisTemplate redisCounter;
 
-  @Override
-  protected StringRedisTemplate getCounter() {
-    return redisCounter;
-  }
+    @Override
+    protected StringRedisTemplate getCounter() {
+        return redisCounter;
+    }
 
-  public void incrCount(Integer resourceId, CounterDomain domain) {
-    incrCount(String.valueOf(resourceId), String.valueOf(domain.getValue()), FAVORITE_FIELD, 1);
-  }
+    public void incrCount(Integer resourceId, CounterDomain domain) {
+        incrCount(String.valueOf(resourceId), String.valueOf(domain.getValue()), FAVORITE_FIELD, 1);
+    }
 
-  public void decrCount(Integer resourceId, CounterDomain domain) {
-    decrCount(String.valueOf(resourceId), String.valueOf(domain.getValue()), FAVORITE_FIELD, 1);
-  }
+    public void decrCount(Integer resourceId, CounterDomain domain) {
+        decrCount(String.valueOf(resourceId), String.valueOf(domain.getValue()), FAVORITE_FIELD, 1);
+    }
 
-  public long findCount(Integer resourceId, CounterDomain domain) {
-    return findCount(resourceId, String.valueOf(domain.getValue()), FAVORITE_FIELD);
-  }
+    public long findCount(Integer resourceId, CounterDomain domain) {
+        return findCount(resourceId, String.valueOf(domain.getValue()), FAVORITE_FIELD);
+    }
 
-  public Map<Integer, Long> queryCount(List<Integer> resourceIds, CounterDomain domian) {
-    return queryCount(resourceIds, String.valueOf(domian.getValue()), FAVORITE_FIELD);
-  }
+    public Map<Integer, Long> queryCount(List<Integer> resourceIds, CounterDomain domian) {
+        return queryCount(resourceIds, String.valueOf(domian.getValue()), FAVORITE_FIELD);
+    }
 
 }

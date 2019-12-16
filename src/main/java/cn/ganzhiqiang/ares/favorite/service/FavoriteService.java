@@ -21,44 +21,44 @@ import java.util.List;
 @Service
 public class FavoriteService {
 
-  @Resource
-  private FavoriteDao favoriteDao;
+    @Resource
+    private FavoriteDao favoriteDao;
 
-  @Resource
-  private CounterService counterService;
+    @Resource
+    private CounterService counterService;
 
-  public List<FavoriteDO> queryFavoriteByUid(Integer userId, int start, int limit) {
-    List<FavoriteDO> favoriteDOS = favoriteDao.queryFavoriteByUid(userId, start, limit);
-    if (CollectionUtils.isEmpty(favoriteDOS)) {
-      return new ArrayList<>();
+    public List<FavoriteDO> queryFavoriteByUid(Integer userId, int start, int limit) {
+        List<FavoriteDO> favoriteDOS = favoriteDao.queryFavoriteByUid(userId, start, limit);
+        if (CollectionUtils.isEmpty(favoriteDOS)) {
+            return new ArrayList<>();
+        }
+        return favoriteDOS;
     }
-    return favoriteDOS;
-  }
 
-  public FavoriteDO findByResourceId(Integer resourceId, TypeEnum type) {
-    return favoriteDao.findFavoriteByResourceId(resourceId, type.getValue());
-  }
-
-  public Integer favorite(Integer uid, Integer resourceId, TypeEnum type) {
-    // 计数加1
-    counterService.incrCount(resourceId, 3);
-    counterService.incrCount(uid, 4);
-
-    FavoriteDO favoriteDO = new FavoriteDO();
-    favoriteDO.setUserId(uid);
-    favoriteDO.setResourceId(resourceId);
-    favoriteDO.setResourceType(type.getValue());
-    return favoriteDao.insertFavorite(favoriteDO);
-  }
-
-  public boolean unfavorite(Integer favoriteId) {
-    FavoriteDO favoriteDO = favoriteDao.findFavoriteById(favoriteId);
-    if (favoriteDO == null) {
-      return false;
+    public FavoriteDO findByResourceId(Integer resourceId, TypeEnum type) {
+        return favoriteDao.findFavoriteByResourceId(resourceId, type.getValue());
     }
-    counterService.decrCount(favoriteDO.getResourceId(), 3);
-    counterService.decrCount(favoriteDO.getUserId(), 4);
-    return favoriteDao.deleteFavorite(favoriteId);
-  }
+
+    public Integer favorite(Integer uid, Integer resourceId, TypeEnum type) {
+        // 计数加1
+        counterService.incrCount(resourceId, 3);
+        counterService.incrCount(uid, 4);
+
+        FavoriteDO favoriteDO = new FavoriteDO();
+        favoriteDO.setUserId(uid);
+        favoriteDO.setResourceId(resourceId);
+        favoriteDO.setResourceType(type.getValue());
+        return favoriteDao.insertFavorite(favoriteDO);
+    }
+
+    public boolean unfavorite(Integer favoriteId) {
+        FavoriteDO favoriteDO = favoriteDao.findFavoriteById(favoriteId);
+        if (favoriteDO == null) {
+            return false;
+        }
+        counterService.decrCount(favoriteDO.getResourceId(), 3);
+        counterService.decrCount(favoriteDO.getUserId(), 4);
+        return favoriteDao.deleteFavorite(favoriteId);
+    }
 
 }

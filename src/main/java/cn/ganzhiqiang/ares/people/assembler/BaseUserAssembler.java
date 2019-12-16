@@ -19,41 +19,41 @@ import java.util.stream.Collectors;
 public class BaseUserAssembler {
 
 
-  public static UserVO toVo(UserDO userDO, UserInfoDO userInfoDO, BaseUserCount baseUserCount) {
+    public static UserVO toVo(UserDO userDO, UserInfoDO userInfoDO, BaseUserCount baseUserCount) {
 
-    return UserVO.builder()
-        .userBase(tobaseUser(userInfoDO))
-        .telephone(userDO.getTelephone())
-        .email(userDO.getEmail())
-        .integral(userInfoDO.getIntegral() == null ? 0 : userInfoDO.getIntegral())
-        .publishCount(baseUserCount.getPublishCount())
-        .likeCount(baseUserCount.getLikeCount())
-        .favoriteCount(baseUserCount.getFavoriteCount())
-        .lookCount((long)(Math.random() * 100))
-        .school(Optional.ofNullable(userInfoDO.getSchool()).orElse(1))
-        .shipAddress(Optional.ofNullable(userInfoDO.getShipAddress()).orElse(""))
-        .build();
-  }
-
-  public static UserBase tobaseUser(UserInfoDO userInfoDO) {
-    if (userInfoDO == null) {
-      return null;
+        return UserVO.builder()
+                .userBase(tobaseUser(userInfoDO))
+                .telephone(userDO.getTelephone())
+                .email(userDO.getEmail())
+                .integral(userInfoDO.getIntegral() == null ? 0 : userInfoDO.getIntegral())
+                .publishCount(baseUserCount.getPublishCount())
+                .likeCount(baseUserCount.getLikeCount())
+                .favoriteCount(baseUserCount.getFavoriteCount())
+                .lookCount((long) (Math.random() * 100))
+                .school(Optional.ofNullable(userInfoDO.getSchool()).orElse(1))
+                .shipAddress(Optional.ofNullable(userInfoDO.getShipAddress()).orElse(""))
+                .build();
     }
-    return UserBase.builder()
-        .id(userInfoDO.getId())
-        .nickname(Optional.ofNullable(userInfoDO.getNickName()).orElse(""))
-        .avatar(Optional.ofNullable(userInfoDO.getAvatarUrl()).orElse(""))
-        .gender(Integer.parseInt(Optional.ofNullable(userInfoDO.getGender()).orElse("1")))
-        .address(String.format("%s %s", Optional.ofNullable(userInfoDO.getProvince()).orElse(""),
-            Optional.ofNullable(userInfoDO.getCity()).orElse("")))
-        .build();
-  }
 
-  public static List<UserBase> tobaseUserList(List<UserInfoDO> userInfoDOS) {
-    return userInfoDOS.stream()
-        .map(BaseUserAssembler::tobaseUser)
-        .filter(Objects::nonNull)
-        .collect(Collectors.toList());
-  }
+    public static UserBase tobaseUser(UserInfoDO userInfoDO) {
+        if (userInfoDO == null) {
+            return null;
+        }
+        return UserBase.builder()
+                .id(userInfoDO.getId())
+                .nickname(Optional.ofNullable(userInfoDO.getNickName()).orElse(""))
+                .avatar(Optional.ofNullable(userInfoDO.getAvatarUrl()).orElse(""))
+                .gender(Integer.parseInt(Optional.ofNullable(userInfoDO.getGender()).orElse("1")))
+                .address(String.format("%s %s", Optional.ofNullable(userInfoDO.getProvince()).orElse(""),
+                        Optional.ofNullable(userInfoDO.getCity()).orElse("")))
+                .build();
+    }
+
+    public static List<UserBase> tobaseUserList(List<UserInfoDO> userInfoDOS) {
+        return userInfoDOS.stream()
+                .map(BaseUserAssembler::tobaseUser)
+                .filter(Objects::nonNull)
+                .collect(Collectors.toList());
+    }
 
 }

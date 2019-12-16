@@ -17,21 +17,21 @@ import java.util.Date;
 @AllArgsConstructor
 public class UserInfoDO {
 
-  private Integer id;
-  private String nickName;
-  private String avatarUrl;
-  private String gender;
-  private Integer integral;
-  private String city;
-  private String province;
-  private String country;
-  private String language;
-  private Integer school;
-  private String shipAddress;
-  private Date creatDateTime;
-  private Date gmtUpdated;
+    private Integer id;
+    private String nickName;
+    private String avatarUrl;
+    private String gender;
+    private Integer integral;
+    private String city;
+    private String province;
+    private String country;
+    private String language;
+    private Integer school;
+    private String shipAddress;
+    private Date creatDateTime;
+    private Date gmtUpdated;
 
-  public UserInfoDO(Integer id) {
-    this.id = id;
-  }
+    public UserInfoDO(Integer id) {
+        this.id = id;
+    }
 }

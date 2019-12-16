@@ -20,12 +20,12 @@ import java.util.Date;
 @NoArgsConstructor
 public class ImageSimpleDO extends BasePOJO {
 
-  private Integer id;
+    private Integer id;
 
-  private Integer goodsId;
+    private Integer goodsId;
 
-  private String path;
+    private String path;
 
-  private String thumPath;
+    private String thumPath;
 
 }

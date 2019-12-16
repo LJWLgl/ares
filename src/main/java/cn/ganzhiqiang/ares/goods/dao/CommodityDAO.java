@@ -21,115 +21,122 @@ import java.util.Map;
 @Repository
 public class CommodityDAO {
 
-  private static final String MAPPING_PREFIX = "goods.";
+    private static final String MAPPING_PREFIX = "goods.";
 
-  @Resource
-  private SqlSessionTemplate readTpl;
+    @Resource
+    private SqlSessionTemplate readTpl;
 
-  @Resource
-  private SqlSessionTemplate writeTpl;
+    @Resource
+    private SqlSessionTemplate writeTpl;
 
-  public GoodsDO findGoods(Integer goodsId) {
-    Map params = new HashMap();
-    params.put("goodsId", goodsId);
-    return readTpl.selectOne(MAPPING_PREFIX + "findGoods", params);
-  }
+    public GoodsDO findGoods(Integer goodsId) {
+        Map params = new HashMap();
+        params.put("goodsId", goodsId);
+        return readTpl.selectOne(MAPPING_PREFIX + "findGoods", params);
+    }
 
-  public List<GoodsDO> queryGoods(int start, int limit) {
-    Map params = new HashMap();
-    params.put("start", start);
-    params.put("limit", limit);
-    return readTpl.selectList(MAPPING_PREFIX + "queryGoods", params);
-  }
+    public List<GoodsDO> queryGoods(int start, int limit) {
+        Map params = new HashMap();
+        params.put("start", start);
+        params.put("limit", limit);
+        return readTpl.selectList(MAPPING_PREFIX + "queryGoods", params);
+    }
 
-  public List<GoodsDO> queryDonationGoods(int start, int limit) {
-    Map params = new HashMap();
-    params.put("start", start);
-    params.put("limit", limit);
-    return readTpl.selectList(MAPPING_PREFIX + "queryDonationGoods", params);
-  }
+    public List<GoodsDO> queryDonationGoods(int start, int limit) {
+        Map params = new HashMap();
+        params.put("start", start);
+        params.put("limit", limit);
+        return readTpl.selectList(MAPPING_PREFIX + "queryDonationGoods", params);
+    }
 
-  public List<GoodsDO> queryHottest(int start, int limit) {
-    Map params = new HashMap();
-    params.put("start", start);
-    params.put("limit", limit);
-    return readTpl.selectList(MAPPING_PREFIX + "queryHottest", params);
-  }
+    public List<GoodsDO> queryHottest(int start, int limit) {
+        Map params = new HashMap();
+        params.put("start", start);
+        params.put("limit", limit);
+        return readTpl.selectList(MAPPING_PREFIX + "queryHottest", params);
+    }
 
-  public List<GoodsDO> queryGoodsByIds(List<Integer> goodsIds) {
-    Map params = new HashMap();
-    params.put("goodsIds", goodsIds);
-    return readTpl.selectList(MAPPING_PREFIX + "queryGoodsByIds", params);
-  }
+    public List<GoodsDO> queryGoodsByIds(List<Integer> goodsIds) {
+        Map params = new HashMap();
+        params.put("goodsIds", goodsIds);
+        return readTpl.selectList(MAPPING_PREFIX + "queryGoodsByIds", params);
+    }
 
-  public List<GoodsDO> queryGoodsByUid(Integer userId, int start, int limit) {
-    Map params = new HashMap();
-    params.put("userId", userId);
-    params.put("start", start);
-    params.put("limit", limit);
-    return readTpl.selectList(MAPPING_PREFIX + "queryGoodsByUid", params);
-  }
+    public List<GoodsDO> queryGoodsByUid(Integer userId, int start, int limit) {
+        Map params = new HashMap();
+        params.put("userId", userId);
+        params.put("start", start);
+        params.put("limit", limit);
+        return readTpl.selectList(MAPPING_PREFIX + "queryGoodsByUid", params);
+    }
 
-  public List<Integer> queryGoodsIdsByUid(Integer userId, int start, int limit) {
-    Map params = new HashMap();
-    params.put("userId", userId);
-    params.put("start", start);
-    params.put("limit", limit);
-    return readTpl.selectList(MAPPING_PREFIX + "queryGoodsIdsByUid", params);
-  }
+    public List<Integer> queryGoodsIdsByUid(Integer userId, int start, int limit) {
+        Map params = new HashMap();
+        params.put("userId", userId);
+        params.put("start", start);
+        params.put("limit", limit);
+        return readTpl.selectList(MAPPING_PREFIX + "queryGoodsIdsByUid", params);
+    }
 
-  public List<GoodsDO> queryGoodsByKeyword(String keyword, int start, int limit) {
-    Map params = new HashMap();
-    params.put("keyword", keyword);
-    params.put("start", start);
-    params.put("limit", limit);
-    return readTpl.selectList(MAPPING_PREFIX + "queryGoodsByKeyWord", params);
-  }
+    public List<GoodsDO> queryGoodsByKeyword(String keyword, int start, int limit) {
+        Map params = new HashMap();
+        params.put("keyword", keyword);
+        params.put("start", start);
+        params.put("limit", limit);
+        return readTpl.selectList(MAPPING_PREFIX + "queryGoodsByKeyWord", params);
+    }
 
-  public List<ImageSimpleDO> queryImagesByGoodsId(Integer goodsId) {
-    Map params = new HashMap();
-    params.put("goodsId", goodsId);
-    return readTpl.selectList(MAPPING_PREFIX + "queryImageByGoodsId", params);
-  }
+    public List<GoodsDO> queryGoodsGtId(int beginId, int limit) {
+        Map params = new HashMap();
+        params.put("beginId", beginId);
+        params.put("limit", limit);
+        return readTpl.selectList(MAPPING_PREFIX + "queryGoodsGtId", params);
+    }
 
-  public List<ImageSimpleDO> queryImagesByGoodsIdList(List<Integer> goodsIds) {
-    Map params = new HashMap();
-    params.put("goodsIds", goodsIds);
-    return readTpl.selectList(MAPPING_PREFIX + "queryImageByGoodsIdList", params);
-  }
+    public List<ImageSimpleDO> queryImagesByGoodsId(Integer goodsId) {
+        Map params = new HashMap();
+        params.put("goodsId", goodsId);
+        return readTpl.selectList(MAPPING_PREFIX + "queryImageByGoodsId", params);
+    }
 
-  public ImageSimpleDO findImage(Integer imageId) {
-    Map params = new HashMap();
-    params.put("imageId", imageId);
-    return readTpl.selectOne(MAPPING_PREFIX + "findImageById", params);
-  }
+    public List<ImageSimpleDO> queryImagesByGoodsIdList(List<Integer> goodsIds) {
+        Map params = new HashMap();
+        params.put("goodsIds", goodsIds);
+        return readTpl.selectList(MAPPING_PREFIX + "queryImageByGoodsIdList", params);
+    }
 
-  public int insertGoods(GoodsDO goodsDO) {
-    int result = writeTpl.insert(MAPPING_PREFIX + "insertGoods", goodsDO);
-    return result == 1 ? goodsDO.getId() : 0;
-  }
-  
-  public int insertImageList(List<ImageSimpleDO> images) {
-    return writeTpl.insert(MAPPING_PREFIX + "insertImageList", images);
-  }
+    public ImageSimpleDO findImage(Integer imageId) {
+        Map params = new HashMap();
+        params.put("imageId", imageId);
+        return readTpl.selectOne(MAPPING_PREFIX + "findImageById", params);
+    }
 
-  public boolean incrLookLike(Integer goodsId) {
-    Map params = new HashMap();
-    params.put("goodsId", goodsId);
-    writeTpl.update(MAPPING_PREFIX + "incrLookCount", params);
-    return true;
-  }
+    public int insertGoods(GoodsDO goodsDO) {
+        int result = writeTpl.insert(MAPPING_PREFIX + "insertGoods", goodsDO);
+        return result == 1 ? goodsDO.getId() : 0;
+    }
 
-  public int countGoods() {
-    return readTpl.selectOne(MAPPING_PREFIX + "countGoods");
-  }
+    public int insertImageList(List<ImageSimpleDO> images) {
+        return writeTpl.insert(MAPPING_PREFIX + "insertImageList", images);
+    }
 
-  public int findMinId() {
-    return readTpl.selectOne(MAPPING_PREFIX + "findMinId");
-  }
+    public boolean incrLookLike(Integer goodsId) {
+        Map params = new HashMap();
+        params.put("goodsId", goodsId);
+        writeTpl.update(MAPPING_PREFIX + "incrLookCount", params);
+        return true;
+    }
 
-  public int findMaxId() {
-    return readTpl.selectOne(MAPPING_PREFIX + "findMaxId");
-  }
+    public int countGoods() {
+        return readTpl.selectOne(MAPPING_PREFIX + "countGoods");
+    }
+
+    public int findMinId() {
+        return readTpl.selectOne(MAPPING_PREFIX + "findMinId");
+    }
+
+    public int findMaxId() {
+        return readTpl.selectOne(MAPPING_PREFIX + "findMaxId");
+    }
 
 }

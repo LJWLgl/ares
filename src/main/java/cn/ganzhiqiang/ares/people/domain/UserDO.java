@@ -18,14 +18,14 @@ import java.util.Date;
 @AllArgsConstructor
 public class UserDO {
 
-  private Integer id;
-  private String openId;
-  private String unionId;
-  private String telephone;
-  private String email;
-  private Integer status;
-  private Integer isAuth;
-  private Date creatDateTime;
-  private Date gmtUpdated;
+    private Integer id;
+    private String openId;
+    private String unionId;
+    private String telephone;
+    private String email;
+    private Integer status;
+    private Integer isAuth;
+    private Date creatDateTime;
+    private Date gmtUpdated;
 
 }

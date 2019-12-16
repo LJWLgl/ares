@@ -12,17 +12,21 @@ POST ayy_goods/ayy_goods/_mapping
         "type": "keyword"
       },
       "title_en": {
-        "type": "text",
-        "analyzer": "standard",
-        "search_analyzer": "standard"
+        "type": "text"
       },
       "title_cn": {
         "type": "text",
         "analyzer": "ik_max_word",
         "search_analyzer": "ik_max_word"
       },
-      "descible": {
+      "title_py": {
         "type": "text"
+       },
+      "describe_cn": {
+        "type": "text"
+      },
+      "describe_en": {
+          "type": "text"
       },
       "price": {
         "type": "double"
@@ -46,15 +50,22 @@ PUT ayy_goods/ayy_goods/2
 GET ayy_goods/ayy_goods/_search
 {
   "from": 0,
+  "size": 10
+}
+
+
+GET ayy_goods/ayy_goods/_search
+{
+  "from": 0,
   "size": 10,
   "query": {
       "match": {
-          "title": "很好"
+          "title_en": "luxiaohe"
       }
   },
   "highlight": {
       "fields": {
-          "title": {}
+          "title_en": {}
       }
   }
 }
@@ -81,4 +92,5 @@ GET ayy_goods/_analyze
    "tokenizer": "ik_smart"
 }
 
+DELETE ayy_goods/ayy_goods/2
 

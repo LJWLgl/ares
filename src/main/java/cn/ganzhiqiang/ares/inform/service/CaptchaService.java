@@ -20,27 +20,27 @@ import java.awt.image.BufferedImage;
 @Service
 public class CaptchaService {
 
-  private final String CAPTCHA_PATTERN = "captcha:%s";
+    private final String CAPTCHA_PATTERN = "captcha:%s";
 
-  private final long CAPTCHA_URL_TTL = 60 * 60 * 1000L; // 10分钟
+    private final long CAPTCHA_URL_TTL = 60 * 60 * 1000L; // 10分钟
 
-  @Resource
-  private InformCache informCache;
+    @Resource
+    private InformCache informCache;
 
-  public BufferedImage genCaptchaImage(HttpServletResponse response, Integer uid) {
-    String code = CaptchaUtil.genCaptcha(5);
-    informCache.put(CAPTCHA_PATTERN, String.valueOf(code), code, CAPTCHA_URL_TTL);
-    //把校验码转为图像
-    BufferedImage image = CaptchaUtil.genCaptchaImg(code);
-    return image;
-  }
-
-  public boolean checkCaptcha(Integer uid, String code) {
-    String value = informCache.get(CAPTCHA_PATTERN, String.valueOf(uid));
-    if (StringUtils.isEmpty(value) || ! value.equals(code.trim())) {
-      return false;
+    public BufferedImage genCaptchaImage(HttpServletResponse response, Integer uid) {
+        String code = CaptchaUtil.genCaptcha(5);
+        informCache.put(CAPTCHA_PATTERN, String.valueOf(code), code, CAPTCHA_URL_TTL);
+        //把校验码转为图像
+        BufferedImage image = CaptchaUtil.genCaptchaImg(code);
+        return image;
     }
-    return true;
-  }
+
+    public boolean checkCaptcha(Integer uid, String code) {
+        String value = informCache.get(CAPTCHA_PATTERN, String.valueOf(uid));
+        if (StringUtils.isEmpty(value) || !value.equals(code.trim())) {
+            return false;
+        }
+        return true;
+    }
 
 }

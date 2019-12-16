@@ -19,20 +19,20 @@ import java.util.Date;
 @NoArgsConstructor
 @AllArgsConstructor
 public class GoodsDO extends BasePOJO {
-  
-  private Integer id;
-  private Integer publishUserId;
-  private String title;
-  private String descible;
-  private Double price;
-  private Double oldPrice;
-  private Double freight;
-  private Integer category;
-  private String publishAddress;
-  private Integer isDonation;
-  private Integer status;
-  private Long lookCount;
-  private Date creatDatetime;
-  private Date gmtUpdated;
+
+    private Integer id;
+    private Integer publishUserId;
+    private String title;
+    private String descible;
+    private Double price;
+    private Double oldPrice;
+    private Double freight;
+    private Integer category;
+    private String publishAddress;
+    private Integer isDonation;
+    private Integer status;
+    private Long lookCount;
+    private Date creatDatetime;
+    private Date gmtUpdated;
 
 }

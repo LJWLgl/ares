@@ -21,15 +21,15 @@ import javax.annotation.Resource;
 @ResponseBody
 public class SightController {
 
-  @Resource
-  private SightService sightService;
+    @Resource
+    private SightService sightService;
 
-  @RequestMapping(value = "getLinkById/", method = RequestMethod.GET)
-  public NapiRespWrapper<String> getLinkById(@RequestParam(value = "sightId") Long sightId) {
-    if (sightId == null) {
-      return new NapiRespWrapper<>(NapiRespStatus.INVALID_PARAM, "非法参数");
+    @RequestMapping(value = "getLinkById/", method = RequestMethod.GET)
+    public NapiRespWrapper<String> getLinkById(@RequestParam(value = "sightId") Long sightId) {
+        if (sightId == null) {
+            return new NapiRespWrapper<>(NapiRespStatus.INVALID_PARAM, "非法参数");
+        }
+        return new NapiRespWrapper<>(sightService.getByLink(sightId));
     }
-    return new NapiRespWrapper<>(sightService.getByLink(sightId));
-  }
 
 }

@@ -22,27 +22,27 @@ import javax.annotation.Resource;
 @ResponseBody
 public class LikeController {
 
-  @Resource
-  private LikeService likeService;
+    @Resource
+    private LikeService likeService;
 
-  @RequestMapping(value = "like/", method = RequestMethod.GET)
-  public NapiRespWrapper<Integer> like(
-      @RequestParam(value = "user_id") Integer userId,
-      @RequestParam(value = "resource_id") Integer resourceId,
-      @RequestParam(value = "resource_type") Integer resourceType) {
-    if (userId == null || resourceId == null || resourceType == null) {
-      return new NapiRespWrapper<>(NapiRespStatus.INVALID_PARAM, "缺少必要参数");
+    @RequestMapping(value = "like/", method = RequestMethod.GET)
+    public NapiRespWrapper<Integer> like(
+            @RequestParam(value = "user_id") Integer userId,
+            @RequestParam(value = "resource_id") Integer resourceId,
+            @RequestParam(value = "resource_type") Integer resourceType) {
+        if (userId == null || resourceId == null || resourceType == null) {
+            return new NapiRespWrapper<>(NapiRespStatus.INVALID_PARAM, "缺少必要参数");
+        }
+        TypeEnum type = TypeEnum.of(resourceType);
+        return new NapiRespWrapper<>(likeService.like(userId, resourceId, type));
     }
-    TypeEnum type = TypeEnum.of(resourceType);
-    return new NapiRespWrapper<>(likeService.like(userId, resourceId, type));
-  }
 
-  @RequestMapping(value = "unlike/", method = RequestMethod.GET)
-  public NapiRespWrapper<Boolean> unlike(@RequestParam(value = "like_id") Integer likeId) {
-    if (likeId == null) {
-      return new NapiRespWrapper<>(NapiRespStatus.INVALID_PARAM, "缺少必要参数");
+    @RequestMapping(value = "unlike/", method = RequestMethod.GET)
+    public NapiRespWrapper<Boolean> unlike(@RequestParam(value = "like_id") Integer likeId) {
+        if (likeId == null) {
+            return new NapiRespWrapper<>(NapiRespStatus.INVALID_PARAM, "缺少必要参数");
+        }
+        return new NapiRespWrapper<>(likeService.unLike(likeId));
     }
-    return new NapiRespWrapper<>(likeService.unLike(likeId));
-  }
 
 }

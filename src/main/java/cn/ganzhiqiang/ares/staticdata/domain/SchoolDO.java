@@ -14,8 +14,8 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class SchoolDO {
 
-  private Integer id;
+    private Integer id;
 
-  private String name;
+    private String name;
 
 }

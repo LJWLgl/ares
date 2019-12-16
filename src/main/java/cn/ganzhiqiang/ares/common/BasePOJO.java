@@ -10,10 +10,10 @@ import java.io.Serializable;
  */
 public class BasePOJO implements Serializable {
 
-  private static final long serialVersionUID = -7110434689134606361L;
+    private static final long serialVersionUID = -7110434689134606361L;
 
-  @Override
-  public String toString() {
-    return ReflectionToStringBuilder.toString(this, ToStringStyle.MULTI_LINE_STYLE);
-  }
+    @Override
+    public String toString() {
+        return ReflectionToStringBuilder.toString(this, ToStringStyle.MULTI_LINE_STYLE);
+    }
 }

@@ -22,28 +22,28 @@ import javax.annotation.Resource;
 @ResponseBody
 public class FavoriteController {
 
-  @Resource
-  private FavoriteService favoriteService;
+    @Resource
+    private FavoriteService favoriteService;
 
-  @RequestMapping(value = "favorite/", method = RequestMethod.GET)
-  public NapiRespWrapper<Integer> favorite(
-      @RequestParam(value = "user_id") Integer userId,
-      @RequestParam(value = "resource_id") Integer resourceId,
-      @RequestParam(value = "resource_type") Integer resourceType) {
+    @RequestMapping(value = "favorite/", method = RequestMethod.GET)
+    public NapiRespWrapper<Integer> favorite(
+            @RequestParam(value = "user_id") Integer userId,
+            @RequestParam(value = "resource_id") Integer resourceId,
+            @RequestParam(value = "resource_type") Integer resourceType) {
 
-    if (userId == null || resourceId == null || resourceType == null) {
-      return new NapiRespWrapper<>(NapiRespStatus.INVALID_PARAM, "缺少必要参数");
+        if (userId == null || resourceId == null || resourceType == null) {
+            return new NapiRespWrapper<>(NapiRespStatus.INVALID_PARAM, "缺少必要参数");
+        }
+        TypeEnum type = TypeEnum.of(resourceType);
+        return new NapiRespWrapper<>(favoriteService.favorite(userId, resourceId, type));
     }
-    TypeEnum type = TypeEnum.of(resourceType);
-    return new NapiRespWrapper<>(favoriteService.favorite(userId, resourceId, type));
-  }
 
-  @RequestMapping(value = "unfavorite/", method = RequestMethod.GET)
-  public NapiRespWrapper<Boolean> unfavorite(@RequestParam(value = "favorite_id") Integer favoriteId) {
-    if (favoriteId == null) {
-      return new NapiRespWrapper<>(NapiRespStatus.INVALID_PARAM, "缺少必要参数");
+    @RequestMapping(value = "unfavorite/", method = RequestMethod.GET)
+    public NapiRespWrapper<Boolean> unfavorite(@RequestParam(value = "favorite_id") Integer favoriteId) {
+        if (favoriteId == null) {
+            return new NapiRespWrapper<>(NapiRespStatus.INVALID_PARAM, "缺少必要参数");
+        }
+        return new NapiRespWrapper<>(favoriteService.unfavorite(favoriteId));
     }
-    return new NapiRespWrapper<>(favoriteService.unfavorite(favoriteId));
-  }
 
 }

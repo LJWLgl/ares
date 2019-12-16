@@ -14,10 +14,10 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 public class WxSessionDTO {
-  private String openid;
+    private String openid;
 
-  @JsonProperty(value = "session_key")
-  private String sessionKey;
+    @JsonProperty(value = "session_key")
+    private String sessionKey;
 
-  private String unionid;
+    private String unionid;
 }

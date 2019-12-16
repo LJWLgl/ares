@@ -24,54 +24,54 @@ import org.springframework.context.annotation.Configuration;
 
 @Configuration
 public class ElasticsearchConfiguration implements FactoryBean<RestHighLevelClient>, InitializingBean, DisposableBean {
-  private static final Logger LOGGER = LoggerFactory.getLogger(ElasticsearchConfiguration.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(ElasticsearchConfiguration.class);
 
-  private String host = "140.143.144.28";
-  private int port = 9200;
+    private String host = "140.143.144.28";
+    private int port = 9200;
 //  private String username;
 //  @Value("${spring.data.elasticsearch.password}")
 //  private String password;
 
-  private RestHighLevelClient restHighLevelClient;
+    private RestHighLevelClient restHighLevelClient;
 
-  @Override
-  public void destroy() throws Exception {
-    try {
-      LOGGER.info("Closing elasticSearch client");
-      if (restHighLevelClient != null) {
-        restHighLevelClient.close();
-      }
-    } catch (final Exception e) {
-      LOGGER.error("Error closing ElasticSearch client: ", e);
+    @Override
+    public void destroy() throws Exception {
+        try {
+            LOGGER.info("Closing elasticSearch client");
+            if (restHighLevelClient != null) {
+                restHighLevelClient.close();
+            }
+        } catch (final Exception e) {
+            LOGGER.error("Error closing ElasticSearch client: ", e);
+        }
     }
-  }
 
-  @Override
-  public RestHighLevelClient getObject() throws Exception {
-    return restHighLevelClient;
-  }
+    @Override
+    public RestHighLevelClient getObject() throws Exception {
+        return restHighLevelClient;
+    }
 
-  @Override
-  public Class<RestHighLevelClient> getObjectType() {
-    return RestHighLevelClient.class;
-  }
+    @Override
+    public Class<RestHighLevelClient> getObjectType() {
+        return RestHighLevelClient.class;
+    }
 
-  @Override
-  public boolean isSingleton() {
-    return false;
-  }
+    @Override
+    public boolean isSingleton() {
+        return false;
+    }
 
-  @Override
-  public void afterPropertiesSet() throws Exception {
-    buildClient();
-  }
+    @Override
+    public void afterPropertiesSet() throws Exception {
+        buildClient();
+    }
 
-  protected void buildClient() {
-    final CredentialsProvider credentialsProvider = new BasicCredentialsProvider();
+    protected void buildClient() {
+        final CredentialsProvider credentialsProvider = new BasicCredentialsProvider();
 //    credentialsProvider.setCredentials(AuthScope.ANY, new UsernamePasswordCredentials(username, password));
-    RestClientBuilder builder = RestClient.builder(new HttpHost(host, port))
-        .setHttpClientConfigCallback(httpClientBuilder -> httpClientBuilder.setDefaultCredentialsProvider(credentialsProvider));
-    restHighLevelClient = new RestHighLevelClient(builder);
-  }
+        RestClientBuilder builder = RestClient.builder(new HttpHost(host, port))
+                .setHttpClientConfigCallback(httpClientBuilder -> httpClientBuilder.setDefaultCredentialsProvider(credentialsProvider));
+        restHighLevelClient = new RestHighLevelClient(builder);
+    }
 
 }

@@ -13,12 +13,12 @@ import org.springframework.boot.web.support.SpringBootServletInitializer;
 @SpringBootApplication
 public class Ares extends SpringBootServletInitializer {
 
-  public static void main(String[] args) {
-    SpringApplication.run(Ares.class, args);
-  }
+    public static void main(String[] args) {
+        SpringApplication.run(Ares.class, args);
+    }
 
-  @Override
-  protected SpringApplicationBuilder configure(SpringApplicationBuilder builder) {
-    return builder.sources(Ares.class);
-  }
+    @Override
+    protected SpringApplicationBuilder configure(SpringApplicationBuilder builder) {
+        return builder.sources(Ares.class);
+    }
 }

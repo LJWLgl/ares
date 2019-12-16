@@ -16,9 +16,9 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class UserSimpleDto {
 
-  private Integer id;
-  private String telephone;
-  private String email;
-  private Integer isAuth;
+    private Integer id;
+    private String telephone;
+    private String email;
+    private Integer isAuth;
 
 }

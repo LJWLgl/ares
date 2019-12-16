@@ -18,18 +18,18 @@ import java.util.Date;
 @AllArgsConstructor
 public class CommentDO {
 
-  private Integer id;
+    private Integer id;
 
-  private Integer userId;
+    private Integer userId;
 
-  private String content;
+    private String content;
 
-  private Integer resourceId;
+    private Integer resourceId;
 
-  private Integer resourceType;
+    private Integer resourceType;
 
-  private Integer status;
+    private Integer status;
 
-  private Date gmtCreate;
+    private Date gmtCreate;
 
 }

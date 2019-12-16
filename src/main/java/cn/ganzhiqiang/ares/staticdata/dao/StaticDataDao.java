@@ -18,15 +18,15 @@ import java.util.Map;
 @Repository
 public class StaticDataDao {
 
-  private static final String MAPPING_PREFIX = "staticdata.";
+    private static final String MAPPING_PREFIX = "staticdata.";
 
-  @Resource
-  private SqlSessionTemplate readTpl;
+    @Resource
+    private SqlSessionTemplate readTpl;
 
-  @Resource
-  private SqlSessionTemplate writeTpl;
+    @Resource
+    private SqlSessionTemplate writeTpl;
 
-  public List<SchoolDO> querySchool() {
-    return readTpl.selectList(MAPPING_PREFIX + "querySchool");
-  }
+    public List<SchoolDO> querySchool() {
+        return readTpl.selectList(MAPPING_PREFIX + "querySchool");
+    }
 }

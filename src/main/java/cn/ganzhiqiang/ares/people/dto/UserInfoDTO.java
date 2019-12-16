@@ -16,18 +16,18 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class UserInfoDTO {
 
-  private String nickName;
+    private String nickName;
 
-  private String avatarUrl;
+    private String avatarUrl;
 
-  private String gender;
+    private String gender;
 
-  private String city;
+    private String city;
 
-  private String province;
+    private String province;
 
-  private String country;
+    private String country;
 
-  private String language;
+    private String language;
 
 }

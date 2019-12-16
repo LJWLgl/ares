@@ -19,25 +19,25 @@ import java.util.Random;
 @RestController
 public class AutoLook {
 
-  @Resource
-  private CommodityService commodityService;
+    @Resource
+    private CommodityService commodityService;
 
-  @RequestMapping(value = "script/look/")
-  public NapiRespWrapper<Integer> autoLook() {
+    @RequestMapping(value = "script/look/")
+    public NapiRespWrapper<Integer> autoLook() {
 
-    Random random = new Random();
-    int goodsMinId = commodityService.findMinId();
-    int goodsMaxId = commodityService.findMaxId();
-    int goodsRandomId = random.nextInt(goodsMaxId);
-    int goodsId = goodsRandomId <= goodsMinId ? goodsMinId : goodsRandomId;
-    BaseGoods goods = commodityService.findGoods(goodsId);
-    while ( goods == null) {
-      goodsRandomId = random.nextInt(goodsMaxId);
-      goodsId = goodsRandomId <= goodsMinId ? goodsMinId : goodsRandomId;
-      goods = commodityService.findGoods(goodsId);
+        Random random = new Random();
+        int goodsMinId = commodityService.findMinId();
+        int goodsMaxId = commodityService.findMaxId();
+        int goodsRandomId = random.nextInt(goodsMaxId);
+        int goodsId = goodsRandomId <= goodsMinId ? goodsMinId : goodsRandomId;
+        BaseGoods goods = commodityService.findGoods(goodsId);
+        while (goods == null) {
+            goodsRandomId = random.nextInt(goodsMaxId);
+            goodsId = goodsRandomId <= goodsMinId ? goodsMinId : goodsRandomId;
+            goods = commodityService.findGoods(goodsId);
+        }
+
+        commodityService.incrLookCount(goodsId);
+        return new NapiRespWrapper<>(goodsId);
     }
-
-    commodityService.incrLookCount(goodsId);
-    return new NapiRespWrapper<>(goodsId);
-  }
 }

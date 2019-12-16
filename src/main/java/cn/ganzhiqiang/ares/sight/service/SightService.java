@@ -19,13 +19,13 @@ import java.util.stream.Collectors;
 @Service
 public class SightService {
 
-  public String getByLink(Long sightId) {
-    List<SightDo> sightList = FileUtil.readJsonList("sight-link-config.json", SightDo.class);
-    if (CollectionUtils.isEmpty(sightList)) {
-      return null;
+    public String getByLink(Long sightId) {
+        List<SightDo> sightList = FileUtil.readJsonList("sight-link-config.json", SightDo.class);
+        if (CollectionUtils.isEmpty(sightList)) {
+            return null;
+        }
+        Map<Long, SightDo> sightDoMap = sightList.stream().collect(Collectors.toMap(SightDo::getId, Function.identity()));
+        return sightDoMap.get(sightId).getLink();
     }
-    Map<Long, SightDo> sightDoMap = sightList.stream().collect(Collectors.toMap(SightDo::getId, Function.identity()));
-    return sightDoMap.get(sightId).getLink();
-  }
 
 }

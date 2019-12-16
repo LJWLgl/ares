@@ -22,23 +22,23 @@ import java.util.List;
 @NoArgsConstructor
 public class BaseGoods {
 
-  private Integer id;
-  private Integer publishUserId;
-  private String title;
-  private String descible;
-  private List<ImageVO> photos;
-  private Double price;
-  private Double oldPrice;
-  private Double freight;
-  private Integer category;
-  private String publishAddress;
-  private Integer isDonation;
-  private Integer status;
-  private Long lookCount;
-  private BaseGoodsCount baseGoodsCount;
-  private Integer likeId;
-  private Integer favoriteId;
-  private Date creatDatetime;
-  private Date gmtUpdated;
+    private Integer id;
+    private Integer publishUserId;
+    private String title;
+    private String descible;
+    private List<ImageVO> photos;
+    private Double price;
+    private Double oldPrice;
+    private Double freight;
+    private Integer category;
+    private String publishAddress;
+    private Integer isDonation;
+    private Integer status;
+    private Long lookCount;
+    private BaseGoodsCount baseGoodsCount;
+    private Integer likeId;
+    private Integer favoriteId;
+    private Date creatDatetime;
+    private Date gmtUpdated;
 
 }

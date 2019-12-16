@@ -16,12 +16,12 @@ import java.util.concurrent.TimeUnit;
 @Repository
 public class SessionDao {
 
-  @Resource
-  private StringRedisTemplate redisSession;
+    @Resource
+    private StringRedisTemplate redisSession;
 
-  public boolean saveSession(String key , String value, long ttl) {
-    redisSession.opsForValue().set(key, value, ttl, TimeUnit.MILLISECONDS);
-    return true;
-  }
+    public boolean saveSession(String key, String value, long ttl) {
+        redisSession.opsForValue().set(key, value, ttl, TimeUnit.MILLISECONDS);
+        return true;
+    }
 
 }

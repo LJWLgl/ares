@@ -19,31 +19,31 @@ import java.util.List;
 @AllArgsConstructor
 @Builder
 public class GoodsSimpleVO {
-  
-  private Integer id;
 
-  @JsonProperty(value = "publish_user_id")
-  private Integer publishUserId;
+    private Integer id;
 
-  private String title;
+    @JsonProperty(value = "publish_user_id")
+    private Integer publishUserId;
 
-  private String descible;
+    private String title;
 
-  private ImageVO cover;
+    private String descible;
 
-  private String price;
+    private ImageVO cover;
 
-  @JsonProperty(value = "publish_address")
-  private String publishAddress;
+    private String price;
 
-  @JsonProperty(value = "is_donation")
-  private Integer isDonation;
+    @JsonProperty(value = "publish_address")
+    private String publishAddress;
 
-  @JsonProperty(value = "publish_date")
-  private String publishDate;
+    @JsonProperty(value = "is_donation")
+    private Integer isDonation;
 
-  @JsonProperty(value = "look_count")
-  private Long lookCount;
+    @JsonProperty(value = "publish_date")
+    private String publishDate;
 
-  private List<String> tags;
+    @JsonProperty(value = "look_count")
+    private Long lookCount;
+
+    private List<String> tags;
 }
