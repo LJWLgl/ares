@@ -53,6 +53,17 @@ public class ESSearchUtil {
         return instance;
     }
 
+    public static RestHighLevelClient getHighLevelClient() {
+        if (restHighLevelClient == null) {
+            synchronized (ESSearchUtil.class) {
+                if (restHighLevelClient == null) {
+                    instance = new ESSearchUtil();
+                }
+            }
+        }
+        return restHighLevelClient;
+    }
+
     private void init() {
         RestClientBuilder restClient = RestClient.builder(new HttpHost(host, port, SCHEMA));
         restHighLevelClient = new RestHighLevelClient(restClient);

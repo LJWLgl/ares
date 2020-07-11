@@ -49,6 +49,7 @@ com_crashlytics_export_strings.xml
 
 # jrebel
 src/main/resources/rebel.xml
+src/main/resources/rebel-remote.xml
 
 ## Project ##
 

@@ -21,8 +21,7 @@ import java.util.List;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class
-GoodsVO {
+public class GoodsVO {
 
     private Integer id;
 

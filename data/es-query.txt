@@ -1,6 +1,17 @@
 GET _cat/plugins
 DELETE ayy_goods
 PUT ayy_goods
+
+GET ayy_goods/ayy_goods/_mapping
+GET ayy_goods/_settings
+
+GET ayy_goods/ayy_goods/_search
+{
+  "query": {
+    "match_all": {}
+  }
+}
+
 POST ayy_goods/ayy_goods/_mapping
 {
   "ayy_goods": {
@@ -41,8 +52,8 @@ POST ayy_goods/ayy_goods/_mapping
 PUT ayy_goods/ayy_goods/2
 {
 	"id": "1",
-	"title": "很好电饭锅",
-	"descible": "九成新",
+	"title_cn": "很好电饭锅",
+	"describe_cn": "九成新",
 	"price": 99.6,
 	"status": 6
 }
@@ -56,40 +67,26 @@ GET ayy_goods/ayy_goods/_search
 
 GET ayy_goods/ayy_goods/_search
 {
+  "explain": true,
   "from": 0,
   "size": 10,
   "query": {
       "match": {
-          "title_en": "luxiaohe"
+          "title_cn": "很好电"
       }
   },
   "highlight": {
       "fields": {
-          "title_en": {}
+          "title_cn": {}
       }
   }
 }
 
-GET ayy_goods/ayy_goods/_search
-{
-  "from": 0,
-  "size": 10,
-  "query": {
-      "match": {
-          "descible": "九成"
-      }
-  },
-  "highlight": {
-      "fields": {
-          "descible": {}
-      }
-  }
-}
 
 GET ayy_goods/_analyze
 {
-   "text":"上海东方明珠塔",
-   "tokenizer": "ik_smart"
+   "text":"其中国家投资了500万",
+   "tokenizer": "ik_max_word"
 }
 
 DELETE ayy_goods/ayy_goods/2

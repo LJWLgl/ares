@@ -6,12 +6,12 @@
     </encoder>
   </appender>
   <appender name="MainLog" class="ch.qos.logback.core.rolling.RollingFileAppender">
-    <file>/gzq/logs/ares/main.log</file>
+    <file>/opt/logs/ares/main.log</file>
     <encoder class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
       <Pattern>%d{yyyy-MM-dd HH:mm:ss} %-5level [%class{16} %line] - %msg%n</Pattern>
     </encoder>
     <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
-      <FileNamePattern>/gzq/logs/ares/main.%d{yyyy-MM-dd}.%i.log.zip</FileNamePattern>
+      <FileNamePattern>/opt/logs/ares/main.%d{yyyy-MM-dd}.%i.log.zip</FileNamePattern>
       <timeBasedFileNamingAndTriggeringPolicy
         class="ch.qos.logback.core.rolling.SizeAndTimeBasedFNATP">
         <maxFileSize>200MB</maxFileSize>
