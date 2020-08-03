@@ -1,10 +1,10 @@
-package cn.ganzhiqiang.ares.sight.service;
+package cn.ganzhiqiang.ares.other.sight.service;
 
 import org.apache.commons.collections.CollectionUtils;
 import org.springframework.stereotype.Service;
 
 import cn.ganzhiqiang.ares.common.utils.FileUtil;
-import cn.ganzhiqiang.ares.sight.domain.SightDo;
+import cn.ganzhiqiang.ares.other.sight.domain.SightDo;
 
 import java.util.List;
 import java.util.Map;

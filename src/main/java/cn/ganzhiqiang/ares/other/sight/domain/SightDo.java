@@ -1,4 +1,4 @@
-package cn.ganzhiqiang.ares.sight.domain;
+package cn.ganzhiqiang.ares.other.sight.domain;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;

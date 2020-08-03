@@ -1,5 +1,6 @@
 package cn.ganzhiqiang.ares.common.utils;
 
+import cn.ganzhiqiang.ares.common.CommonConstants;
 import org.apache.commons.lang3.StringUtils;
 
 import java.util.concurrent.ConcurrentHashMap;
@@ -10,8 +11,6 @@ import java.util.concurrent.ConcurrentHashMap;
  **/
 
 public class GConfigUtil {
-
-    private static final String DEFAULT_CONFIG_PATH = "/gzq/config/ares/application.properties";
 
     private static ConcurrentHashMap<String, Object> keyValueMap = new ConcurrentHashMap<>();
 
@@ -26,7 +25,7 @@ public class GConfigUtil {
         }
         Object cacheValue = keyValueMap.get(key);
         if (cacheValue == null) {
-            T value = FileUtil.getProperty(DEFAULT_CONFIG_PATH, key, clz, null);
+            T value = FileUtil.getProperty(CommonConstants.DEFAULT_CONFIG_PATH, key, clz, null);
             if (value != null) {
                 keyValueMap.put(key, value);
                 return value;

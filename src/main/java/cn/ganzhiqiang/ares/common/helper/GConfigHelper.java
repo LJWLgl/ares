@@ -1,15 +1,12 @@
 package cn.ganzhiqiang.ares.common.helper;
 
+import cn.ganzhiqiang.ares.common.CommonConstants;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.core.env.Environment;
 import org.springframework.stereotype.Component;
 
-import cn.ganzhiqiang.ares.common.utils.FileUtil;
-
 import javax.annotation.Resource;
-
-import java.util.concurrent.ConcurrentHashMap;
 
 /**
  * @author zq_gan
@@ -17,7 +14,7 @@ import java.util.concurrent.ConcurrentHashMap;
  **/
 
 @Component
-@PropertySource(value = {"file:/gzq/config/ares/application.properties"})
+@PropertySource(value = {"file:" + CommonConstants.DEFAULT_CONFIG_PATH})
 public class GConfigHelper {
 
     @Resource

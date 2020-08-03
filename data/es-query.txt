@@ -44,6 +44,13 @@ POST ayy_goods/ayy_goods/_mapping
       },
       "status": {
         "type": "keyword"
+      },
+      "gb_gps": {
+         "properties": {
+            "location": {
+                "type": "geo_point"
+             }
+         }
       }
     }
   }

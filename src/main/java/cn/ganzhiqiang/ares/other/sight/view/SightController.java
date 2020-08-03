@@ -1,4 +1,4 @@
-package cn.ganzhiqiang.ares.sight.view;
+package cn.ganzhiqiang.ares.other.sight.view;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import cn.ganzhiqiang.ares.common.enums.NapiRespStatus;
 import cn.ganzhiqiang.ares.common.warpper.NapiRespWrapper;
-import cn.ganzhiqiang.ares.sight.service.SightService;
+import cn.ganzhiqiang.ares.other.sight.service.SightService;
 
 import javax.annotation.Resource;
 
